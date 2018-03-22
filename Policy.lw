@@ -1,0 +1,124 @@
+composition
+
+# Fugue Conductor RBAC Policy
+import Fugue.System.Policy as .
+
+# Fugue Conductor Account
+fugue: NamedAccount {accountName: "fugue"}
+
+# Users
+adminUser:    User {userId: "admin"}
+secOpsUser:   User {userId: "secops"}
+devOpsUser:   User {userId: "devops"}
+ciUser:       User {userId: "ci"}
+readOnlyUser: User {userId: "readonly"}
+
+# User Groups (Lists of Users)
+adminGroup:    [adminUser]
+secOpsGroup:   [secOpsUser]
+devOpsGroup:   [devOpsUser]
+ciGroup:       [ciUser]
+readOnlyGroup: [readOnlyUser]
+
+# Admin Policy
+adminRules: [
+  accountTableRules {
+    principals: adminGroup,
+    actions: allAccountTableActions
+  },
+  accountRules {
+    principals: adminGroup,
+    accounts: [AllAccounts],
+    actions: allAccountActions
+  },
+  rbacRules {
+    principals: adminGroup,
+    actions: allRbacActions 
+  },
+  processRules {
+    principals: adminGroup,
+    processes: [AllProcesses],
+    actions: allProcessActions
+  },
+  validationTableRules {
+    principals: adminGroup,
+    actions: allValidationTableActions
+  }
+]
+
+# CI Policy
+ciRules: [
+  accountRules {
+    principals: ciGroup,
+    accounts: [AllAccounts],
+    actions: [
+      AccountRunProcess,
+      AccountUpdateProcess,
+      AccountKillProcess,
+      AccountHistoryProcess,
+      AccountStatusProcess
+    ]
+  },
+]
+
+# Security Operations Policy
+secOpsRules: [
+  accountTableRules {
+    principals: secOpsGroup,
+    actions: [AccountTableList]
+  },
+  rbacRules {
+    principals: secOpsGroup,
+    actions: [
+      RbacListUsers,
+      RbacAttachPolicy,
+      RbacGetPolicy,
+      RbacDetachPolicy,
+      RbacRotateCredential,
+      RbacPolicyStatus
+    ]
+  },
+  validationTableRules {
+    principals: secOpsGroup,
+    actions: [
+      ValidationTableCreate,
+      ValidationTableGet,
+      ValidationTableDelete,
+      ValidationTableList
+    ]
+  }
+]
+
+# DevOps Policy
+devOpsRules: [
+  accountRules {
+    principals: devOpsGroup,
+    accounts: [AllAccounts],
+    actions: allAccountActions
+  },
+  rbacRules {
+    principals: devOpsGroup,
+    actions: allRbacActions
+  },
+  processRules {
+    principals: devOpsGroup,
+    processes: [AllProcesses],
+    actions: allProcessActions
+  },
+  validationTableRules {
+    principals: devOpsGroup,
+    actions: allValidationTableActions
+  }
+]
+
+# Read Only Policy
+readOnlyRules: [
+  accountRules {
+    principals: readOnlyGroup,
+    accounts: [AllAccounts],
+    actions: [
+      AccountHistoryProcess,
+      AccountStatusProcess
+    ]
+  },
+]
