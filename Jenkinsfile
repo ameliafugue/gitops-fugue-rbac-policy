@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'id'
+        sh 'cat Policy.lw'
       }
     }
   }
