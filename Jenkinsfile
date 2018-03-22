@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Party Time!') {
       steps {
-        sh 'cat Policy.lw'
+        sh 'aws s3 ls'
       }
     }
   }
