@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('Build') {
+    stage('Party Time!') {
       steps {
         sh 'cat Policy.lw'
       }
