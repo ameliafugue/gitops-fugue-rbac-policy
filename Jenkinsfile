@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Party Time!') {
       steps {
-        sh 'aws s3 ls'
+        sh 'id'
       }
     }
   }
