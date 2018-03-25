@@ -1,10 +1,8 @@
 pipeline {
   agent {
-    dockerfile {
-      filename 'Dockerfile'
-      additionalBuildArgs '-v /var/run/docker.sock:/var/run/docker.sock'
+    docker {
+      image 'ubuntu:latest'
     }
-    
   }
   stages {
     stage('Stage One') {
