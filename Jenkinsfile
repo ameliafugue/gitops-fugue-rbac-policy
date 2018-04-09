@@ -1,7 +1,9 @@
 node {
 
   /* Setup our environment */
-  withEnv(["AWS_DEFAULT_REGION=us-east-1"]) {
+  withEnv(["AWS_DEFAULT_REGION=us-east-1",
+           "FUGUE_RBAC_DO_AS=1",
+           "FUGUE_LWC_OPTIONS=true"]) {
 
     /* Checkout git repo */
     checkout(scm)
