@@ -9,10 +9,10 @@ node {
     checkout(scm)
 
     /* Use Amazon ECR repo */
-    docker.withRegistry("https://225195660222.dkr.ecr.us-east-1.amazonaws.com/fugue/client", "ecr:us-east-1:ECS_REPO" ) {
+    docker.withRegistry("https://721018433921.dkr.ecr.us-east-1.amazonaws.com/fugue/client", "ecr:us-east-1:ECS_REPO" ) {
 
       /* Pull the fugue client docker container from ECR */
-      docker.image("225195660222.dkr.ecr.us-east-1.amazonaws.com/fugue/client:latest").inside {
+      docker.image("721018433921.dkr.ecr.us-east-1.amazonaws.com/fugue/client").inside {
 
         /* Set our Fugue credentials */
         withCredentials([string(credentialsId: "FUGUE_USER_NAME", variable: "FUGUE_USER_NAME"),
