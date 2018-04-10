@@ -9,7 +9,7 @@ node {
     checkout(scm)
 
     /* Use Amazon ECR repo */
-    docker.withRegistry("https://225195660222.dkr.ecr.us-east-1.amazonaws.com/fugue/client", "ecr:us-east-1:ecsrepo" ) {
+    docker.withRegistry("https://225195660222.dkr.ecr.us-east-1.amazonaws.com/fugue/client", "ecr:us-east-1:ECS_REPO" ) {
 
       /* Pull the fugue client docker container from ECR */
       docker.image("225195660222.dkr.ecr.us-east-1.amazonaws.com/fugue/client:latest").inside {
